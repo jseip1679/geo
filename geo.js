@@ -13,7 +13,7 @@ var calcDistance = function(lat1,lon1,lat2,lon2){
   lat2 = lat2.toRad();
 
   var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-          Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+          Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c;
   return d;
@@ -21,9 +21,9 @@ var calcDistance = function(lat1,lon1,lat2,lon2){
 
 
 //Real CSV parsing done here
-csv().from.stream(fs.createReadStream(__dirname+'/loads.csv'))
+csv().from.stream(fs.createReadStream('/Users/jakeseip/Desktop/zip_codes_states.csv'))//__dirname+
 .to.path(__dirname+'/loadsWithDistance.csv').on('record', function(row){
-
+  console.log(row);
 }).on('end', function(count){
   console.log('Number of lines: '+count);
-});
+}).on('error', function(err){console.log("Error:", err);});
