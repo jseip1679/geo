@@ -1,0 +1,13 @@
+{
+  "name": "geo",
+  "version": "0.0.0",
+  "description": "A lightweight utility for calculating distances",
+  "main": "geo.js",
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "underscore": "~1.5.2",
+    "csv": "~0.3.6"
+  }
+}
