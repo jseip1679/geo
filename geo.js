@@ -23,7 +23,11 @@ var calcDistance = function(lat1,lon1,lat2,lon2){
   return R * c;
 };
 
-//Iterate through all cities, map them to the closest city that's already been mapped
+/**
+Iterate through all cities, map them to the closest city that's already been mapped
+
+If a city doesn't map to another city in the list it maps to itself.
+**/
 var mapAllCities = function(){
   var distanceThreshold = 50; //miles
 
@@ -46,10 +50,14 @@ var mapAllCities = function(){
   return mappings;
 };
 
-//Real CSV parsing done here
+//Code enty point. Read the CSV, do the data transformation, and then write the results to a new file.
 csv().from.stream(fs.createReadStream('/Users/jakeseip/Desktop/locations.csv')).on('record', function(row){
   citiesToMapTo.push({coords:[row[2]*1,row[3]*1], name: row[1]});
 }).on('end', function(count){
   console.log('Parsed ', count, 'lines');
   mapAllCities();
+
+  ///Write the results
+  csv().from(mappings).to(fs.createWriteStream('/Users/jakeseip/Desktop/locationMappings.csv'));
 }).on('error', function(err){console.log("ERROR:", err);});
+
