@@ -51,13 +51,14 @@ var mapAllCities = function(){
 };
 
 //Code enty point. Read the CSV, do the data transformation, and then write the results to a new file.
-csv().from.stream(fs.createReadStream('/Users/jakeseip/Desktop/locations.csv')).on('record', function(row){
-  citiesToMapTo.push({coords:[row[2]*1,row[3]*1], name: row[1]});
-}).on('end', function(count){
-  console.log('Parsed ', count, 'lines');
-  mapAllCities();
+csv().
+  from.stream(fs.createReadStream('/Users/jakeseip/Desktop/locations.csv')).on('record', function(row){
+    citiesToMapTo.push({coords:[row[2]*1,row[3]*1], name: row[1]});
+  }).on('end', function(count){
+    console.log('Parsed ', count, 'lines');
+    mapAllCities();
 
-  ///Write the results
-  csv().from(mappings).to(fs.createWriteStream('/Users/jakeseip/Desktop/locationMappings.csv'));
-}).on('error', function(err){console.log("ERROR:", err);});
+    ///Write the results
+    csv().from(mappings).to(fs.createWriteStream('/Users/jakeseip/Desktop/locationMappings.csv'));
+  }).on('error', function(err){console.log("ERROR:", err);});
 
